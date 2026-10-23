@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>云课堂 - 在线教育平台</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🎓</span>
+      <span id="siteName">云课堂</span>
+      <span class="site-sub" id="siteSubtitle">随时随地，想学就学</span>
+    </div>
+    <div class="topbar-actions">
+      <a href="管理.html" class="btn btn-ghost btn-sm">⚙️ 管理后台</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>精选课程，尽在云课堂</h1>
+      <p>海量优质视频课程，助你快速成长</p>
+    </section>
+
+    <!-- 分类筛选 -->
+    <div class="category-bar" id="categoryBar"></div>
+
+    <!-- 课程列表 -->
+    <section class="course-grid" id="courseGrid"></section>
+
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="icon">📭</div>
+      <p>暂无课程，请前往管理后台添加</p>
+    </div>
+  </main>
+
+  <!-- 视频播放模态框 -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal" style="position:relative">
+      <button class="modal-close" id="modalClose">✕</button>
+      <video id="videoPlayer" controls playsinline></video>
+      <div class="modal-info">
+        <div class="modal-cat" id="modalCat"></div>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

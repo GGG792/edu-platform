@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理后台 - 云课堂</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 登录页 -->
+  <div class="login-wrap" id="loginPage">
+    <div class="login-card">
+      <div style="font-size:48px;margin-bottom:12px">🔐</div>
+      <h2>管理后台登录</h2>
+      <p>请输入管理员密码以继续</p>
+      <div class="form-group">
+        <input type="password" class="form-control" id="pwdInput" placeholder="管理员密码" />
+      </div>
+      <button class="btn btn-primary" style="width:100%" id="loginBtn">登 录</button>
+      <p style="margin-top:16px;font-size:12px;color:var(--text-muted)">默认密码：admin123（可在设置中修改）</p>
+    </div>
+  </div>
+
+  <!-- 后台主界面 -->
+  <div class="admin-layout" id="adminPage" style="display:none">
+    <aside class="admin-sidebar">
+      <div class="brand">
+        <span class="logo">⚙️</span>
+        <span>管理后台</span>
+      </div>
+      <nav class="admin-nav">
+        <a class="active" data-tab="courses">📚 课程管理</a>
+        <a data-tab="settings">🎛️ 站点设置</a>
+        <a data-tab="data">💾 数据备份</a>
+        <a href="index.html">🏠 返回前台</a>
+        <a id="logoutBtn">🚪 退出登录</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <!-- 课程管理 -->
+      <section id="tab-courses">
+        <div class="admin-header">
+          <h1>课程管理</h1>
+          <button class="btn btn-primary" id="addCourseBtn">＋ 新增课程</button>
+        </div>
+        <div id="courseList"></div>
+      </section>
+
+      <!-- 站点设置 -->
+      <section id="tab-settings" style="display:none">
+        <div class="admin-header">
+          <h1>站点设置</h1>
+        </div>
+        <div style="max-width:500px">
+          <div class="form-group">
+            <label>站点名称</label>
+            <input type="text" class="form-control" id="setName" />
+          </div>
+          <div class="form-group">
+            <label>站点副标题</label>
+            <input type="text" class="form-control" id="setSubtitle" />
+          </div>
+          <div class="form-group">
+            <label>管理员密码</label>
+            <input type="text" class="form-control" id="setPwd" />
+          </div>
+          <button class="btn btn-primary" id="saveSettingsBtn">💾 保存设置</button>
+        </div>
+      </section>
+
+      <!-- 数据备份 -->
+      <section id="tab-data" style="display:none">
+        <div class="admin-header">
+          <h1>数据备份</h1>
+        </div>
+        <p style="color:var(--text-secondary);margin-bottom:20px;font-size:14px">
+          导出当前所有课程与设置为 JSON 文件，或从 JSON 文件导入恢复。
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+          <button class="btn btn-primary" id="exportBtn">📥 导出数据</button>
+          <label class="btn btn-ghost" for="importFile">📤 导入数据</label>
+          <input type="file" id="importFile" accept=".json" style="display:none" />
+          <button class="btn btn-danger" id="resetBtn">♻️ 恢复默认课程</button>
+        </div>
+        <div id="dataPreview"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 课程编辑模态框 -->
+  <div class="modal-overlay" id="courseModal">
+    <div class="modal" style="position:relative;max-width:560px">
+      <button class="modal-close" id="courseModalClose">✕</button>
+      <div class="modal-info">
+        <h2 id="courseModalTitle">新增课程</h2>
+        <div class="form-group">
+          <label>课程标题 *</label>
+          <input type="text" class="form-control" id="fTitle" placeholder="例如：Python 入门" />
+        </div>
+        <div class="form-group">
+          <label>课程描述</label>
+          <textarea class="form-control" id="fDesc" placeholder="课程简介..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>视频地址 *</label>
+          <input type="text" class="form-control" id="fVideo" placeholder="https://...mp4 或 m3u8" />
+        </div>
+        <div class="form-group">
+          <label>封面图地址</label>
+          <input type="text" class="form-control" id="fThumb" placeholder="https://...jpg" />
+        </div>
+        <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label>分类</label>
+            <input type="text" class="form-control" id="fCat" placeholder="编程开发" />
+          </div>
+          <div>
+            <label>时长</label>
+            <input type="text" class="form-control" id="fDur" placeholder="45 分钟" />
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn btn-ghost" id="courseCancelBtn">取消</button>
+          <button class="btn btn-primary" id="courseSaveBtn">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
